@@ -13,9 +13,11 @@ It is designed for the Shenzhen Creative Maker G4 workflow:
 ## Files
 
 - `mpy_competition/board.py`: onboard board wrapper
+- `mpy_competition/ai_camera.py`: official AI camera compatibility layer
 - `mpy_competition/sensors.py`: sensor and actuator wrappers
 - `mpy_competition/iot.py`: local HTTP and MQTT clients
 - `examples/quick_start.py`: sample project
+- `examples/ai_camera_probe.py`: AI camera protocol probe
 
 ## Copy to board
 
@@ -77,6 +79,47 @@ the notice:
 - visual AI camera: `SerialVisionCamera`
 - self-built IoT server: `LocalHttpClient`, `LocalMqttClient`
 
+## Official AI camera support
+
+This repo now vendors the official mPython AI camera drivers from your local
+installation:
+
+- `mpy_competition/vendor/MuVisionSensor.py`
+- `mpy_competition/vendor/MuVisionSensor3AT.py`
+
+Use the unified wrapper in `mpy_competition/ai_camera.py`.
+
+```python
+from mpy_competition import build_ai_camera
+
+camera = build_ai_camera(protocol="auto")
+target = camera.read_target("body")
+print(target)
+```
+
+The probe uses the same default wiring that appears in the built-in mPython AI
+camera examples:
+
+- TX: `P16`
+- RX: `P15`
+
+If MuVision probing fails, keep one more legacy fallback in mind. The older
+`AIcamera.zip` package bundled with mPython points to a REPL-style SmartCamera
+setup that uses:
+
+- TX: `P14`
+- RX: `P13`
+- baudrate: `2000000`
+
+Run the probe example first if you are not sure which protocol your camera uses:
+
+```python
+from mpy_competition import probe_ai_camera
+
+result = probe_ai_camera(tx_pin="P16", rx_pin="P15", uart_id=1)
+print(result)
+```
+
 ## Notes
 
 - `InfraredObstacleSensor` defaults to `active_low=True` because many common
@@ -87,5 +130,8 @@ the notice:
   the address / command that matches your hardware.
 - `SerialVisionCamera` expects a simple serial text or JSON protocol. Keep the
   AI camera side fixed and only change the command or parser on one side.
+- `probe_ai_camera()` currently probes the two official MuVision UART protocol
+  families first. If it still fails, the camera may be a legacy REPL-style
+  SmartCamera, or the TX/RX wiring may be reversed.
 - The sample IoT clients are intended for local servers inside your local AP or
   classroom LAN, not public cloud services.

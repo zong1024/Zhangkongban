@@ -1,3 +1,16 @@
+from .ai_camera import (
+    AICameraError,
+    COMMON_BAUDRATES,
+    DEFAULT_AI_CAMERA_RX_PIN,
+    DEFAULT_AI_CAMERA_TX_PIN,
+    LEGACY_SMART_CAMERA_BAUDRATE,
+    LEGACY_SMART_CAMERA_RX_PIN,
+    LEGACY_SMART_CAMERA_TX_PIN,
+    MuVisionATCamera,
+    MuVisionBinaryCamera,
+    build_ai_camera,
+    probe_ai_camera,
+)
 from .board import board, CompetitionBoard
 from .iot import LocalHttpClient, LocalMqttClient
 from .sensors import (
@@ -18,6 +31,17 @@ from .sensors import (
 __all__ = [
     "board",
     "CompetitionBoard",
+    "AICameraError",
+    "COMMON_BAUDRATES",
+    "DEFAULT_AI_CAMERA_RX_PIN",
+    "DEFAULT_AI_CAMERA_TX_PIN",
+    "LEGACY_SMART_CAMERA_BAUDRATE",
+    "LEGACY_SMART_CAMERA_RX_PIN",
+    "LEGACY_SMART_CAMERA_TX_PIN",
+    "MuVisionATCamera",
+    "MuVisionBinaryCamera",
+    "build_ai_camera",
+    "probe_ai_camera",
     "LocalHttpClient",
     "LocalMqttClient",
     "AnalogInputSensor",
