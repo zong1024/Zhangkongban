@@ -13,6 +13,15 @@ from .ai_camera import (
 )
 from .board import board, CompetitionBoard
 from .iot import LocalHttpClient, LocalMqttClient
+from .scenarios import (
+    DEFAULT_SHARED_SCENE_CONFIG,
+    DualSceneCompetitionApp,
+    GuideStickScene,
+    SharedHardware,
+    TrashCanScene,
+    build_shared_scene_config,
+    normalize_detection_payload,
+)
 from .sensors import (
     AnalogInputSensor,
     AnalogTemperatureSensor,
@@ -44,6 +53,13 @@ __all__ = [
     "probe_ai_camera",
     "LocalHttpClient",
     "LocalMqttClient",
+    "DEFAULT_SHARED_SCENE_CONFIG",
+    "DualSceneCompetitionApp",
+    "GuideStickScene",
+    "SharedHardware",
+    "TrashCanScene",
+    "build_shared_scene_config",
+    "normalize_detection_payload",
     "AnalogInputSensor",
     "AnalogTemperatureSensor",
     "DHTSensor",
